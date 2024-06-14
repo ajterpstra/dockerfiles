@@ -21,6 +21,7 @@ RUN apt-get update \
        snmp \
        snmp-mibs-downloader \
        whois \
+       syslog-ng \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p "$OBSERVIUM_HOME" \
     && wget --dot-style=mega -O- "https://www.observium.org/observium-community-latest.tar.gz" | tar xzo --strip-components=1 -C "$OBSERVIUM_HOME" \
@@ -29,6 +30,13 @@ RUN apt-get update \
 COPY etc /etc
 COPY entrypoint.sh /entrypoint.sh
 
+# syslog config
+COPY observium.conf /etc/syslog-ng/conf.d/observium.conf
+
+EXPOSE 80/tcp
+EXPOSE 514/udp
+
 ENTRYPOINT [ "dumb-init" ]
 
 CMD [ "/entrypoint.sh" ]
+
