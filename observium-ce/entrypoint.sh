@@ -65,6 +65,7 @@ gosu www-data "$OBSERVIUM_HOME/discovery.php" -u
 /etc/init.d/cron start
 /etc/init.d/php8.2-fpm start
 /etc/init.d/nginx start
+/etc/init.d/syslog-ng start
 
 # Wait indefinitely
 exec sleep infinity
