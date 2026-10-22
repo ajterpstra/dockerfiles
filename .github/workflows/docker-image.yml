@@ -1,0 +1,25 @@
+name: Docker Image CI Observium
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file observium-ce/Dockerfile --tag my-image-name:$(date +%s)
