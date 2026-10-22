@@ -1,16 +1,16 @@
-# Copyright © 2020 Zlatko Čalušić
+# Copyright © 2025 Zlatko Čalušić
 #
 # Use of this source code is governed by an MIT-style license that can be found in the LICENSE file.
 #
 
-DOCKER_IMAGE ?= zcalusic/debian-bullseye
+DOCKER_IMAGE ?= zcalusic/rsync
 
 .PHONY: default docker_build docker_push
 
 default: docker_build
 
 docker_build:
-	docker pull debian:bullseye
+	docker pull zcalusic/debian-trixie
 	docker build -t $(DOCKER_IMAGE) .
 
 docker_push:

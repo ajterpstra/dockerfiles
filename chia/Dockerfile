@@ -1,10 +1,9 @@
-FROM zcalusic/debian-bookworm
-MAINTAINER Zlatko Čalušić <zcalusic@bitsync.net>
+FROM zcalusic/debian-trixie
 
 ARG CHIA_VERSION
 
-ENV PIP_BREAK_SYSTEM_PACKAGES 1
-ENV PIP_ROOT_USER_ACTION ignore
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+ENV PIP_ROOT_USER_ACTION=ignore
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -16,8 +15,7 @@ RUN apt-get update \
     && cd /usr/local \
     && git clone --branch "$CHIA_VERSION" --depth 1 https://github.com/Chia-Network/chia-blockchain.git \
     && cd chia-blockchain \
-    && git submodule update --init --depth 1 mozilla-ca \
-    && pip install --no-cache-dir "chia-blockchain==$CHIA_VERSION" \
+    && pip install --no-cache-dir --ignore-installed pip "chia-blockchain==$CHIA_VERSION" \
     && apt-get purge -y --autoremove \
        build-essential \
        git \

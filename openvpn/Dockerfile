@@ -1,5 +1,4 @@
-FROM zcalusic/debian-bookworm
-MAINTAINER Zlatko Čalušić <zcalusic@bitsync.net>
+FROM zcalusic/debian-trixie
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openvpn \

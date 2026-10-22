@@ -1,5 +1,4 @@
-FROM zcalusic/debian-bookworm as builder
-MAINTAINER Zlatko Čalušić <zcalusic@bitsync.net>
+FROM zcalusic/debian-trixie AS builder
 
 ARG S3FS_VERSION
 
@@ -24,15 +23,15 @@ RUN apt-get update \
     && make install-strip \
     && gzip -9 /usr/share/man/man1/s3fs.1
 
-FROM zcalusic/debian-bookworm
-MAINTAINER Zlatko Čalušić <zcalusic@bitsync.net>
+FROM zcalusic/debian-trixie
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        fuse \
        libcurl4 \
+       libfuse2t64 \
        man \
-       mime-support \
+       media-types \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /usr/bin/s3fs /usr/bin/s3fs

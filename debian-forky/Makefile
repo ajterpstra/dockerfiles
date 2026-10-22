@@ -1,16 +1,16 @@
-# Copyright © 2018 Zlatko Čalušić
+# Copyright © 2026 Zlatko Čalušić
 #
 # Use of this source code is governed by an MIT-style license that can be found in the LICENSE file.
 #
 
-DOCKER_IMAGE ?= zcalusic/debian-buster
+DOCKER_IMAGE ?= zcalusic/debian-forky
 
 .PHONY: default docker_build docker_push
 
 default: docker_build
 
 docker_build:
-	docker pull debian:buster
+	docker pull debian:forky
 	docker build -t $(DOCKER_IMAGE) .
 
 docker_push:

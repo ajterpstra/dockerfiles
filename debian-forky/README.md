@@ -1,9 +1,9 @@
-# Debian 10 Buster Docker base image
+# Debian 14 Forky Docker base image
 
-[![Pulls](https://img.shields.io/docker/pulls/zcalusic/debian-buster.svg)](https://hub.docker.com/r/zcalusic/debian-buster/)
-[![Stars](https://img.shields.io/docker/stars/zcalusic/debian-buster.svg)](https://hub.docker.com/r/zcalusic/debian-buster/)
+[![Pulls](https://img.shields.io/docker/pulls/zcalusic/debian-forky.svg)](https://hub.docker.com/r/zcalusic/debian-forky/)
+[![Stars](https://img.shields.io/docker/stars/zcalusic/debian-forky.svg)](https://hub.docker.com/r/zcalusic/debian-forky/)
 
-Based on the official Debian 10 Buster Docker base image.
+Based on the official Debian 14 Forky Docker base image.
 
 ## Features
 
@@ -17,12 +17,14 @@ Based on the official Debian 10 Buster Docker base image.
     * optimize installation of additional Debian packages
   * `ca-certificates`
     * verify communication when downloading third-party software
-  * `dnsutils`
-    * client programs related to DNS
+  * `bind9-dnsutils`
+    * clients provided with BIND 9
   * `dumb-init`
     * minimal init system for containers, killing zombies, redirecting signals...
   * `gosu`
     * robust setuid + setgid + setgroups + exec with sane tty and signal forwarding behavior
+  * `iproute2`
+    * networking and traffic control tools
   * `jq`
     * lightweight and flexible command-line JSON processor
   * `less`
@@ -47,19 +49,19 @@ Based on the official Debian 10 Buster Docker base image.
 Pull image:
 
 ```
-sudo docker pull zcalusic/debian-buster
+sudo docker pull zcalusic/debian-forky
 ```
 
 Interactive shell:
 
 ```
-sudo docker run --rm -it zcalusic/debian-buster
+sudo docker run --rm -it zcalusic/debian-forky
 ```
 
 As base image in your own Dockerfile:
 
 ```
-FROM zcalusic/debian-buster
+FROM zcalusic/debian-forky
 ```
 
 ## Building container image
