@@ -37,12 +37,10 @@ jobs:
       - name: Generate date tag
         run: echo "DATE_TAG=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
-      - name: Set dir
-        run: cd observium-ce
-
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
+          working-directory: ./observium-ce
           context: .
           provenance: false
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v8
