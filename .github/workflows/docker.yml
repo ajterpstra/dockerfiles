@@ -11,6 +11,10 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Set dir
+        run: cd observium-ce
+        
       - name: Checkout
         uses: actions/checkout@v3
 
