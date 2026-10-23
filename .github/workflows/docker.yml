@@ -40,7 +40,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          working-directory: ./observium-ce
+          file: ./observium-ce/Dockerfile
           context: .
           provenance: false
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v8
