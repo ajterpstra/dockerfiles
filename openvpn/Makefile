@@ -5,13 +5,4 @@
 
 DOCKER_IMAGE ?= zcalusic/openvpn
 
-.PHONY: default docker_build docker_push
-
-default: docker_build
-
-docker_build:
-	docker pull zcalusic/debian-trixie
-	docker build -t $(DOCKER_IMAGE) .
-
-docker_push:
-	docker push $(DOCKER_IMAGE):latest
+include ../docker.mk

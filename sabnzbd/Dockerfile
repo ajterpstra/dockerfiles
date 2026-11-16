@@ -1,5 +1,7 @@
 FROM zcalusic/debian-trixie AS builder
 
+SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        automake \
@@ -9,7 +11,7 @@ RUN apt-get update \
     && MAKEFLAGS="-j $(nproc)" \
     && export MAKEFLAGS \
     && cd /usr/local/src \
-    && PAR2CMDLINE_TURBO_LATEST_RELEASE=$(wget -qO- https://api.github.com/repos/animetosho/par2cmdline-turbo/releases/latest | jq -r '.tag_name') \
+    && PAR2CMDLINE_TURBO_LATEST_RELEASE=$(wget -q --server-response -O /dev/null https://github.com/animetosho/par2cmdline-turbo/releases/latest 2>&1 | sed -n 's|^ *Location: .*/releases/tag/||p') \
     && git clone --branch "$PAR2CMDLINE_TURBO_LATEST_RELEASE" --depth 1 https://github.com/animetosho/par2cmdline-turbo \
     && cd par2cmdline-turbo \
     && autoreconf -fvi \
@@ -17,6 +19,8 @@ RUN apt-get update \
     && make install-strip
 
 FROM zcalusic/debian-trixie
+
+SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
 
 ARG SABNZBD_VERSION
 

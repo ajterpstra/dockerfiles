@@ -5,13 +5,4 @@
 
 DOCKER_IMAGE ?= zcalusic/debian-forky
 
-.PHONY: default docker_build docker_push
-
-default: docker_build
-
-docker_build:
-	docker pull debian:forky
-	docker build -t $(DOCKER_IMAGE) .
-
-docker_push:
-	docker push $(DOCKER_IMAGE):latest
+include ../docker.mk

@@ -1,4 +1,4 @@
-FROM zcalusic/debian-bookworm AS builder
+FROM zcalusic/debian-trixie AS builder
 
 ARG DYNOMITE_VERSION
 
@@ -9,9 +9,8 @@ RUN apt-get update \
        git \
        libc6-dev \
        libssl-dev \
-       libtool \
+       libyaml-dev \
        make \
-       patch \
     && MAKEFLAGS="-j $(nproc)" \
     && export MAKEFLAGS \
     && cd /usr/local/src \
@@ -21,21 +20,20 @@ RUN apt-get update \
     && ./configure \
     && make install-strip
 
-FROM zcalusic/debian-bookworm
+FROM zcalusic/debian-trixie
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends binutils \
+    && apt-get install -y --no-install-recommends \
+       libssl3t64 \
+       libyaml-0-2 \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /conf
 
 COPY --from=builder /usr/local/sbin/dynomite /usr/sbin/dynomite
-COPY --from=builder /usr/local/sbin/dynomite-test /usr/sbin/dynomite-test
 COPY --from=builder /usr/local/bin/dynomite-hash-tool /usr/bin/dynomite-hash-tool
 COPY --from=builder /usr/local/src/dynomite/conf /conf
 
 COPY dynomite.yml /conf/dynomite.yml
-
-STOPSIGNAL SIGKILL
 
 EXPOSE 8101 8102 22222
 
